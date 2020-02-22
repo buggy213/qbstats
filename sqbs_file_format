@@ -1,0 +1,83 @@
+Each leaf of the tree represented by these lists corresponds to one line in the data file, unless clearly indicated otherwise.
+
+Number of teams
+For each team:
+    1 plus the number of players (i.e., information on how many of the following lines to associate with this team)
+    Team name
+    Each player name on a separate line. (This leaf node in our documentation represents as many lines as there are players on a given team.)
+Number of matches
+For each match:
+    Id
+    0-based index of the team shown on the left in the Game Entry screen
+    0-based index of the team shown on the right in the Game Entry screen
+    Score of left team, or -1 if the game is a forfeit
+    Score of right team, or -1 if the game is a forfeit
+    Toss-Ups Heard
+    Rnd
+    If bouncebacks are tracked manually:
+        (left team Bonuses Heard) + (10000 * left team BncBks)
+        (left team Bonuses [sic] Pts) + (10000 * left team [bounceback] Pts)
+        (right team Bonuses Heard) + (10000 * right team BncBks)
+        (right team Bonuses [sic] Pts) + (10000 * right team [bounceback] Pts)
+    Otherwise:
+        left team Bonuses Heard
+        left team Bonuses [sic] Pts
+        right team Bonuses Heard
+        right team Bonuses [sic] Pts
+    If "Overtime" is checked then 1, otherwise 0
+    left team tossups-without-bonuses (the left box following the "Overtime" checkbox)
+    right team tossups-without-bonuses (the left box following the "Overtime" checkbox)
+    If "Forfeit" is checked then 1, otherwise 0. (In a forfeit, the left team is the winner and the right team is the loser.)
+    If "Track Lightning Round Stats" is checked (in tournament setup) then the left team's Ltng Pts, otherwise 0
+    If "Track Lightning Round Stats" is checked (in tournament setup) then the right team's Ltng Pts, otherwise 0
+    The following a total of 16 times. It starts with the first player on the left team, then it's the first player on the right team, then the second player on the left team, then the second player on the right team, etc., until each team has had eight players (or all-zero blocks) listed.
+        The 0-based index of the player within his/her team (as listed above), or -1 if this slot is not used for a player
+        GP (games played) for this player, or 0 if this slot is not used for a player
+        Number of questions answered for the first possible point value. If this point value is not used or this slot is not used for a player, then 0. Commonly, this is the number of powers.
+        Number of questions answered for the second possible point value. If this point value is not used or this slot is not used for a player, then 0. Commonly, this is the number of regular "gets".
+        Number of questions answered for the third possible point value. If this point value is not used or this slot is not used for a player, then 0. Commonly, this is the number of negs.
+        Number of questions answered for the fourth possible point value. If this point value is not used or this slot is not used for a player, then 0. Commonly, this is not used and is therefore 0.
+        Total points scored by this player, or 0 if this slot is not used for a player.
+If "Bonus Conversion Tracking" (in tournament setup) is "None" then 0, otherwise 1
+If "Bonus Conversion Tracking" (in tournament setup) is "Automatic" then 1, if "None" then 0, if "Manual Hrd, Auto Pts" then 2, if "Manual with Bouncebacks" then 3
+If "Track Power and Neg Stats" is enabled (in tournament setup) then 3, otherwise 2
+If "Track Lightning Round Stats" is enabled (in tournament setup) then 1, otherwise 0
+If "Track Toss-Ups Heard" is enabled (in tournament setup) then 1, otherwise 0
+If "Sort Players by Pts/TUH" is enabled (in the Sorting tab of Settings) then 1, otherwise 0
+A bit mask for the "Warnings" tab in Settings. Start with 0; add 128 if the first is enabled, add 64 if the second is enabled, and so on, up to adding 2 if the seventh is enabled, so 254 represents all warnings enabled.
+If round report is enabled (in the Reports tab of Settings) then 1, otherwise 0
+If team standings report is enabled (in the Reports tab of Settings) then 1, otherwise 0
+If individual standings report is enabled (in the Reports tab of Settings) then 1, otherwise 0
+If scoreboard report is enabled (in the Reports tab of Settings) then 1, otherwise 0
+If team detail report is enabled (in the Reports tab of Settings) then 1, otherwise 0
+If individual detail report is enabled (in the Reports tab of Settings) then 1, otherwise 0
+If the "stat key" for web reports is enabled (in the Reports tab of Settings) then 1, otherwise 0
+If a custom stylesheet for web reports is specified (in the Reports tab of Settings) then 1, otherwise 0
+If "Use Divisions" is enabled (in the General tab of Settings) then 1, otherwise 0
+The 1-based index of the sort method chosen in the Sorting tab of Settings. (1 is for "Record, PPG", …, 5 is for "Record, Head-to-Head, PPTH")
+Tournament name
+The Host Address (from the FTP tab of Settings)
+The User Name (from the FTP tab of Settings)
+The Directory (from the FTP tab of Settings)
+The Base File Name (from the FTP tab of Settings)
+If "Always use '/' in paths" in the FTP tab of settings is false, and "British-Style Reports" in the Reports tab of settings is false, then 0. If /-in-paths is true and British is false, then 1. If /-in-paths is false and British is true, then 2. If both are true, then 3. (This is oddly complex; one assumes that this line originally represented just "Always use '/' in paths", then the "British-Style Reports" option was created later and its value incorporated into this line to avoid breaking backward-compatibility.)
+The file suffix next to "Include Team Standings" (in the Reports tab of Settings)
+The file suffix next to "Include Individual Standings" (in the Reports tab of Settings)
+The file suffix next to "Include Scoreboard" (in the Reports tab of Settings)
+The file suffix next to "Include Team Detail" (in the Reports tab of Settings)
+The file suffix next to "Include Individual Detail" (in the Reports tab of Settings)
+The file suffix next to "Include Round Reports" (in the Reports tab of Settings)
+The file suffix next to "Include Stat Key" (in the Reports tab of Settings)
+The file name next to "Use Style Sheet" (in the Reports tab of Settings)
+If Divisions [i.e., pools] are used, then the number of Divisions, otherwise 0
+If Divisions are used, then the name of each Division in order (This leaf node in our documentation represents as many lines as there are Divisions, which may be no lines at all.)
+The number of teams
+For each team according to its index, the (0-based) index of the Division it is assigned to, or -1 if Divisions are not used. (This leaf node in our documentation represents as many lines as there are teams.)
+The point value of the first type of question, or 0 if the first slot is unused
+The point value of the second type of question, or 0 if the second slot is unused
+The point value of the third type of question, or 0 if the third slot is unused
+The point value of the fourth type of question, or 0 if the fourth slot is unused
+If packet names are used, then the number of packet names, otherwise 0
+If packet names are used, then each packet name in order. (This leaf node in our documentation represents as many lines as there are packet names specified, which might be no lines at all.)
+The number of teams
+For each team according to its index, 1 if it is an exhibition team, otherwise 0. (This leaf node in our documentation represents as many lines as there are teams.)
